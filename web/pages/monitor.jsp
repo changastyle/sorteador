@@ -83,9 +83,12 @@
     <body>
         <div class="container-fluid body">
             
-            <%@include file="navBar.jsp"%>
+            <div class="container">
+                <h2 class="hx">Tablero Digital!</h2>
+            </div>
+
             <!--<img class="img-thumbnail img-responsive" src="res/img/dinero-enrollado.jpeg">-->
-            <div class='container-fluid'>
+            <div class='container wrap1'>
                 <div class="hx"><h3>Sorteo Matutino del 10/02/2016:</h3></div>
                 <ul class="list-group col-xs-3" >
                     <!--<li class="list-group-item active"><h5 class="hs">Sorteos del 0 al 5:</h5></li>-->
@@ -106,7 +109,7 @@
                     <li class="list-group-item">5)</li>
                 </ul>
                 <ul class="list-group col-xs-3" style="margin-top:15px;">
-                    <li class="list-group-item active"><h5 class="hs">Sorteos del 5 al 10:</h5></li>
+                    <!--<li class="list-group-item active"><h5 class="hs">Sorteos del 5 al 10:</h5></li>-->
                     <li class="list-group-item">6.</li>
                     <li class="list-group-item">7.</li>
                     <li class="list-group-item">8.</li>
@@ -114,7 +117,7 @@
                     <li class="list-group-item">10.</li>
                 </ul>
                 <ul class="list-group col-xs-3" style="margin-top:15px;">
-                    <li class="list-group-item active"><h5 class="hs">Sorteos del 10 al 15:</h5></li>
+                    <!--<li class="list-group-item active"><h5 class="hs">Sorteos del 10 al 15:</h5></li>-->
                     <li class="list-group-item">11.</li>
                     <li class="list-group-item">12.</li>
                     <li class="list-group-item">13.</li>
@@ -122,7 +125,7 @@
                     <li class="list-group-item">15.</li>
                 </ul>
                 <ul class="list-group col-xs-3" style="margin-top:15px;">
-                    <li class="list-group-item active"><h5 class="hs">Sorteos del 15 al 20:</h5></li>
+                    <!--<li class="list-group-item active"><h5 class="hs">Sorteos del 15 al 20:</h5></li>-->
                     <li class="list-group-item">16.</li>
                     <li class="list-group-item">17.</li>
                     <li class="list-group-item">18.</li>

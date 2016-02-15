@@ -7,10 +7,11 @@
     body
     {
         height: 100%;
-        background-image: url('res/img/bollillero.jpg');
+        /*background-image: url('res/img/bollillero.jpg');*/
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;
+         background-color:#4CAF50;
     }
     .wrap1
     {
