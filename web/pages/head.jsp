@@ -11,7 +11,7 @@
         background-repeat: no-repeat;
         background-attachment: fixed;
         background-size: cover;
-         background-color:#4CAF50;
+        background-color:#4CAF50;
     }
     .wrap1
     {
@@ -31,26 +31,13 @@
         font-size: 18px;
         text-align: center;
     }
-    .indice
+    
+    tr
     {
-        font-size: 24px;
-        display: inline-block;
-        font-family: 'Orbitron', sans-serif;
+        background-color:white;
     }
-    .numero
-    {
-        font-size: 56px;
-        text-align: center;
-        display: inline-block;
-        font-family: 'Orbitron', sans-serif;
-    }
-    .digito
-    {
-        margin: 0px;
-        display: inline-block;
-        padding:0px;
-        font-size: 56px;
-    }
+    
+    
     .nav-enlaces
     {
         font-size: 18px;
