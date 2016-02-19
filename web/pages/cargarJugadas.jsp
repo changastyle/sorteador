@@ -30,15 +30,16 @@
                 padding-bottom: 80px;
                 color:white;
             }
-        </style>
-        
+        </style> 
     </head>
     <body ng-app="app"  ng-controller="cargarJugadas">
        
+        <!-- Banner -->
         <div class="col-xs-10 col-xs-offset-1 hx" style="margin-bottom: 0px;">
            Loteria de Salta!
         </div>
        
+        <!-- Formulario -->
         <div class="col-xs-10 col-xs-offset-1 wrap2">
             <div class="form-horizontal" style=" border-radius: 5px; padding:12px;">
                 <h3 class="hs" style="font-size: 24px;">Formulario carga de jugadas:</h3>
@@ -47,7 +48,9 @@
                     <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
                 </div>
                 
-                <button style="display: none;" class="btn btn-default" onclick="window.location.href='home.jsp'"><span class="glyphicon glyphicon-arrow-left"></span> Home</button>
+                <button style="display: none;" class="btn btn-default" onclick="window.location.href='home.jsp'"
+                        <span class="glyphicon glyphicon-arrow-left"></span> Home
+                </button>
                 
                 
                 <div class="form-group">
@@ -69,6 +72,13 @@
                 </div>
                 
                 <div class="form-group">
+                    <button class="btn btn-success form-control" id="btnComenzar" ng-click="mostrarListado()" >
+                        <span class="glyphicon glyphicon-ok"></span> Comenzar!
+                    </button>
+                </div>
+                
+                <!-- Listado de carga: -->
+                <div class="form-group" id="listadoCarga" hidden>
                     <table class="table table-responsive">
                         <thead>
                         <th class="col-xs-5">Jugadas</th>
@@ -81,12 +91,14 @@
                                 <td class="col-xs-5">
                                     <div class="input-group">
                                         <span class="input-group-addon" id="basic-addon1">{{r.indice1}}</span>
-                                        <input type="text" id="inputJugada{{r.indice1}}" data-boton="btnJugadas{{r.indice1}}" placeholder="Cargar {{r.texto1}} Jugada acá.."
+                                        <input type="text" id="inputJugada{{r.indice1}}" data-identificador="{{r.indice1}}" placeholder="Cargar {{r.texto1}} Jugada acá.."
                                                class="form-control inputsJugadas" aria-describedby="basic-addon1"
                                                onkeypress="validarInputJugada(this)" onkeyup="validarInputJugada(this)">
                                     </div>
                                     <td class="col-xs-1">
-                                        <button id="btnJugadas1" data-jugada="inputJugada{{r.indice1}}" data-progress="progress{{r.indice1}}" data-okay="okay{{r.indice1}}" onclick="enviarJugadaSimple(this)" class="btn btn-success"><span class="glyphicon glyphicon-ok"></span> Enviar</button>
+                                        <button id="btnJugadas1" data-identificador="{{r.indice1}}" onclick="enviarJugadaSimple(this)" class="btn btn-success">
+                                            <span class="glyphicon glyphicon-ok"></span> Enviar
+                                        </button>
                                         <img id="progress{{r.indice1}}" class="img-thumbnail img-wait" height="10px" src="res/img/progress.gif" >
                                         <h5  id="okay{{r.indice1}}" class="img-wait"><span class="glyphicon glyphicon-ok" height="10px" ></span> Enviado</h5>
                                     </td>
@@ -94,12 +106,15 @@
                                 <td class="col-xs-5">
                                     <div class="input-group">
                                         <span class="input-group-addon" id="basic-addon1">{{r.indice2}}</span>
-                                        <input type="text" id="inputJugada{{r.indice2}}" data-boton="btnJugadas{{r.indice2}}" placeholder="Cargar {{r.texto2}} Jugada acá.." class="form-control inputsJugadas" aria-describedby="basic-addon1"
-                                        onkeypress="validarInputJugada(this)" onkeyup="validarInputJugada(this)" >
+                                        <input type="text" id="inputJugada{{r.indice2}}"  data-identificador="{{r.indice2}}" placeholder="Cargar {{r.texto2}} Jugada acá.." 
+                                               class="form-control inputsJugadas" aria-describedby="basic-addon1"
+                                               onkeypress="validarInputJugada(this)" onkeyup="validarInputJugada(this)" >
                                     </div>
                                 </td>
                                 <td class="col-xs-1">
-                                    <button  id="btnJugadas{{r.indice2}}" data-jugada="inputJugada{{r.indice2}}" data-progress="progress{{r.indice2}}" data-okay="okay{{r.indice2}}" class="btn btn-success" onclick="enviarJugadaSimple(this)"><span class="glyphicon glyphicon-ok"></span> Enviar</button>
+                                    <button  id="btnJugadas{{r.indice2}}" data-identificador="{{r.indice2}}" class="btn btn-success" onclick="enviarJugadaSimple(this)">
+                                        <span class="glyphicon glyphicon-ok"></span> Enviar
+                                    </button>
                                     <img id="progress{{r.indice2}}" class="img-thumbnail img-wait" height="10px" src="res/img/progress.gif" >
                                     <h5  id="okay{{r.indice2}}" class="img-wait" ><span class="glyphicon glyphicon-ok" height="10px" ></span> Enviado</h5>
                                 </td>
@@ -127,6 +142,12 @@
         {"indice1":8,"indice2":18,"texto1":"Octava","texto2":"Decimo Octava"},
         {"indice1":9,"indice2":19,"texto1":"Novena","texto2":"Decimo Novena"},
         {"indice1":10,"indice2":20,"texto1":"Decima","texto2":"Duodecima"});
+        
+        $scope.mostrarListado = function()
+        {
+            $("#btnComenzar").hide("slow");
+            $("#listadoCarga").show("slow");
+        }
     });
     </script>
     <script>
@@ -136,11 +157,11 @@
         console.log(fechaActual.getHours());
         document.getElementById('datePicker').valueAsDate = new Date();
 
-        if(fechaActual.getHours()< 12)
+        if(fechaActual.getHours() < 12)
         {
             document.getElementById("comboSorteo").selectedIndex = "0";
         }
-        else if(fechaActual.getHours()> 12 && fechaActual.getHours()< 18)
+        else if(fechaActual.getHours() > 12 && fechaActual.getHours()< 18)
         {
             document.getElementById("comboSorteo").selectedIndex = "1";
         }
@@ -148,17 +169,24 @@
         {
             document.getElementById("comboSorteo").selectedIndex = "2";
         }
+        
+        //RESETEAR ARR BACKEND:
+        $.ajax({url:"../WS/resetear.jsp",success: function (data, textStatus, jqXHR) 
+        {
+            console.log("arr backend reseteado!")
+        }});
     });
 
     function validarInputJugada(quien)
     {
+        id = $(quien).data("identificador");
         valor = $(quien).val();
-       // input = $(quien).data("jugada");
-        botonAsociado = $(quien).data("boton");
-        console.log("validando inputs jugada: "+ valor   + " | " + botonAsociado) ;
+        botonAsociado = "btnJugadas" + id ;
+        
+        console.log("validando inputs jugada: valor-> " + valor + " | botonAsociado ->" + botonAsociado) ;
 
 
-        if(isNaN(valor) || valor.length > 4 || valor.length < 3)
+        if(isNaN(valor) || valor.length != 4 )
         {
             $(quien).css("border","solid 2px red");
             $("#" + botonAsociado).prop( "disabled", true );
@@ -172,16 +200,20 @@
     }
     function enviarJugadaSimple(quien)
     {
-        input = $(quien).data("jugada");
-        progress = $(quien).data("progress");
-        okay = $(quien).data("okay");
+        id = $(quien).data("identificador");
+        input = "inputJugada" +  id;
+        progress = "progress" + id;
+        okay = "okay" + id;
         valorDelInput = $("#" + input).val();
-        console.log("Enviando jugada:" + valorDelInput + " | " + progress + " | " +okay);
+        
+        console.log("Enviando jugada:" + valorDelInput + " | " + progress + " | "  + okay);
 
         $(quien).hide();
+        jugada = {"indice" : id, "numero" : valorDelInput};
+        console.log("jugada" + jugada.toString());
         $.ajax(
         {   url:"../WS/reciboJugada.jsp",
-            data:{"jugada": valorDelInput},
+            data:{"jugada": JSON.stringify(jugada)},
             beforeSend: function (xhr) 
             {
                 $("#" + progress).show();
@@ -193,7 +225,7 @@
                 console.log("respuesta del WS: " + response);
             }
         });
-
+        
     }
     </script>
 </html>
