@@ -5,32 +5,8 @@
         <%@include file="head.jsp"%>
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
         <title>Cargar Jugadas</title>
-        <style>
-            label
-            {
-                text-align: center;
-            }
-            table
-            {
-                text-align: center;
-            }
-            th
-            {
-                text-align: center;
-            }
-            .img-wait
-            {
-                display: none;
-                max-height: 35px;
-                color:green;
-            }
-            .wrap2
-            {
-                background-color:rgba(0,0,0,0.85);
-                padding-bottom: 80px;
-                color:white;
-            }
-        </style> 
+        <link rel="stylesheet" href="res/css/cargarJugadasCSS.css">
+        <link rel="stylesheet" href="res/css/enComunCSS.css">
     </head>
     <body ng-app="app"  ng-controller="cargarJugadas">
        
@@ -42,15 +18,15 @@
         <!-- Formulario -->
         <div class="col-xs-10 col-xs-offset-1 wrap2">
             <div class="form-horizontal" style=" border-radius: 5px; padding:12px;">
-                <h3 class="hs" style="font-size: 24px;">Formulario carga de jugadas:</h3>
+                <h3 class=" hs headerCargaJugadas">Fecha y Hora del Sorteo:</h3>
                 
-                <div class="alert alert-danger" hidden>
+                <!--<div class="alert alert-danger" hidden>
                     <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
                 </div>
                 
-                <button style="display: none;" class="btn btn-default" onclick="window.location.href='home.jsp'"
+                <button style="display: none;" class="btn btn-default"  onclick="window.location.href='home.jsp'"
                         <span class="glyphicon glyphicon-arrow-left"></span> Home
-                </button>
+                </button>-->
                 
                 
                 <div class="form-group">
@@ -71,6 +47,7 @@
                     </div>
                 </div>
                 
+                <!-- BTN COMENZAR: -->
                 <div class="form-group">
                     <button class="btn btn-success form-control" id="btnComenzar" ng-click="mostrarListado()" >
                         <span class="glyphicon glyphicon-ok"></span> Comenzar!
@@ -80,13 +57,14 @@
                 <!-- Listado de carga: -->
                 <div class="form-group" id="listadoCarga" hidden>
                     <table class="table table-responsive">
-                        <thead>
-                        <th class="col-xs-5">Jugadas</th>
-                        <th class="col-xs-1"></th>
-                        <th class="col-xs-5">Jugadas</th>
-                        <th class="col-xs-1"></th>
+                        
+                        <thead style="color:black;">
+                        <th class="col-xs-12 headerCargaJugadas" colspan="4"> Carga de Jugadas:</th>
+                        <!--<th class="col-xs-5" colspan="2">Jugadas</th>
+                        <th class="col-xs-5" colspan="2">Jugadas</th>-->
                         </thead>
                         <tbody>
+                            
                             <tr ng-repeat="r in repeticiones">
                                 <td class="col-xs-5">
                                     <div class="input-group">
@@ -145,8 +123,17 @@
         
         $scope.mostrarListado = function()
         {
-            $("#btnComenzar").hide("slow");
-            $("#listadoCarga").show("slow");
+            //RESETEAR ARR BACKEND:
+            $.ajax({url:"../WS/resetear.jsp",beforeSend: function (xhr) 
+            {
+                $("#btnComenzar").addClass("btnRotador");
+                
+            },success: function (data, textStatus, jqXHR) 
+            {
+                console.log("arr backend reseteado!");
+                $("#btnComenzar").hide("slow");
+                $("#listadoCarga").show("slow");
+            }});
         }
     });
     </script>
@@ -169,12 +156,6 @@
         {
             document.getElementById("comboSorteo").selectedIndex = "2";
         }
-        
-        //RESETEAR ARR BACKEND:
-        $.ajax({url:"../WS/resetear.jsp",success: function (data, textStatus, jqXHR) 
-        {
-            console.log("arr backend reseteado!")
-        }});
     });
 
     function validarInputJugada(quien)

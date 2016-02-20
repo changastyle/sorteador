@@ -1,62 +1,8 @@
 <html>
     <head>
         <%@include file="head.jsp" %>
-        <style>
-            body
-            {
-                background-color:#9B3C52;
-            }
-            #contenedor
-            {
-                position: absolute;
-                top:0px;
-                bottom: 0px;
-                left:0px;
-                right: 0px;
-                background-color:#9B3C52;
-                /*background-color:#4CAF50;*/
-                height: 100%;
-                /*border:solid 2px black;*/
-                width: 100%;
-                box-sizing: border-box;
-                
-            }
-            #logoSalta
-            {
-                max-height: 80px;
-                margin:4px;
-            }
-            .listas
-            {
-                /*border:solid 2px black;*/
-            }
-            .numero
-            {
-                font-size: 56px;
-                /*text-align: center;*/
-                display: inline-block;
-                font-family: 'Orbitron', sans-serif;
-                width: 75%
-            }
-            .digito
-            {
-                margin: 0px;
-                display: inline-block;
-                padding:0px;
-                font-size: 56px;
-            }
-            .indice
-            {
-                font-size: 48px;
-                display: inline-block;
-                font-family: 'Orbitron', sans-serif;
-                background-color:black;
-                color:white;
-                width: 25%;
-                margin-right: 15px;
-                text-align: center;
-            }
-        </style>
+        <link rel="stylesheet" href="res/css/monitorCSS.css">
+        <link rel="stylesheet" href="res/css/enComunCSS.css">
         <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     </head>
     <body ng-app="app" ng-controller="monitor">
@@ -65,20 +11,28 @@
         <div id="contenedor" style="box-sizing: border-box;"> 
             
             <!-- BANNER : -->
-            <div class="banner hx" style="height: 200px;">
-                <h4><img id="logoSalta" src="res/img/loteria.jpg" class="img-responsive img-thumbnail" > Loteria de Salta!</h4>
-                <h5>Operada por TecnoAccion</h5>
+            <div class="banner" style="height: 150px;">
+                <div class="titular">
+                    <img id="logoSalta" src="res/img/loteria.jpg" class="img-responsive img-thumbnail " >
+                    <table style="display:inline-block">
+                        <tr><td><h4 class="hl" id="encabezadoPrincipal"> Loteria de Salta!</h4></td></tr>
+                        <tr><td><h5 class="hs"> Operada por TecnoAccion </h5></td></tr>
+                    </table>
+                </div>
+                
             </div>
             
             <!-- LISTAS: -->
-            <div class="container-fluid" style="box-sizing: border-box;">
+            <div class="container-fluid" style="box-sizing: border-box; margin-top: 12px;">
+                
+                <h4 class=" col-xs-12 headerSorteo ">Sorteo del dia {{dia}}: </h4>
                 
                 <div class="col-xs-3 listas" id="lista1" ng-repeat="p in partes"> 
-                    <table class="table" style="height: calc(100% - 230px);">
+                    <table class="table" style="height: calc(100% - 250px);">
                         <tr ng-repeat="c in p.estructura">
                             <!--{{p}}-->
                             <td class="indice">{{c.indice}}</td>
-                            <td class="numero" id="numero{{c.indice}}">
+                            <td class="numero" id="numero{{c.indice}}" class="vert-align"  valign="middle">
                                 <div class="col-xs-3 digito digito1" >{{c.numero1}}</div>
                                 <div class="col-xs-3 digito digito2" >{{c.numero2}}</div>
                                 <div class="col-xs-3 digito digito3" >{{c.numero3}}</div>
@@ -93,7 +47,6 @@
     </body>
     <script>
         app = angular.module('app', []);
-        
         
         app.controller('monitor', function($scope, $http, $interval)
         {
@@ -258,7 +211,13 @@
             }
             
         });
-            
         
     </script> 
+    <script>
+        $(document).ready(function()
+        {
+            console.log("estoy listo");
+            //document.getElementById("encabezadoPrincipal").style.transform = "rotate(360deg)";
+        });
+    </script>
 </html>

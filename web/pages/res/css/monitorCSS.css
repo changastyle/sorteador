@@ -1,0 +1,99 @@
+
+body
+{
+    background-color:#9B3C52;
+}
+#contenedor
+{
+    position: absolute;
+    top:0px;
+    bottom: 0px;
+    left:0px;
+    right: 0px;
+    background-color:#9B3C52;
+    /*background-color:#4CAF50;*/
+    height: 100%;
+    /*border:solid 2px black;*/
+    width: 100%;
+    box-sizing: border-box;
+
+}
+#logoSalta
+{
+    max-height: 110px;
+    margin:4px;
+    margin-top:-40px;
+}
+.listas
+{
+    /*border:solid 2px black;*/
+}
+.numero
+{
+    font-size: 56px;
+    /*text-align: center;*/
+    display: inline-block;
+    font-family: 'Orbitron', sans-serif;
+    width: 75%
+}
+.digito
+{
+    /*margin: 0px;*/
+    display: inline-block;
+    /*padding:0px;*/
+    font-size: 72px;
+    text-align: center;
+}
+.indice
+{
+    font-size: 48px;
+    display: inline-block;
+    font-family: 'Orbitron', sans-serif;
+    background-color:black;
+    color:white;
+    width: 25%;
+    margin-right: 15px;
+    text-align: center;
+}
+.banner
+{
+    font-family: 'Bangers', cursive;
+    /*background-color:rgba(255,255,255,0.85);*/
+    background-color:rgba(0,0,0,0.40);
+    box-shadow: 5px 5px 15px black;
+    height: 100%;
+    overflow: hidden;
+}
+.titular
+{
+    /*border:solid 2px black;*/
+    text-align: center;
+}
+.hx
+{
+
+    display: inline-block;
+    background-color:rgba(255,255,255,0.85);
+    font-size: 48px;
+    text-align: center;
+}
+
+.hl
+{
+    font-family: 'Bangers', cursive;
+    font-size: 48px;
+    padding:12px;
+}
+.hs
+{
+    font-family: 'Bangers', cursive;
+    font-size: 24px;
+    text-align: center;
+}
+.headerSorteo
+{
+    font-family: 'Bangers', cursive;
+    font-size: 36px;
+    text-align: center;
+    background-color:rgba(255,255,255,0.85);
+}

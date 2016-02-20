@@ -1,0 +1,50 @@
+label
+{
+    text-align: center;
+}
+table
+{
+    text-align: center;
+}
+th
+{
+    text-align: center;
+}
+.img-wait
+{
+    display: none;
+    max-height: 35px;
+    color:green;
+}
+.wrap2
+{
+    background-color:rgba(0,0,0,0.85);
+    padding-bottom: 80px;
+    color:white;
+}
+.btnRotador
+{
+    transform: rotate(360deg);
+}
+.headerCargaJugadas
+{
+    font-family: 'Bangers', cursive;
+    font-size: 36px;
+    padding:12px;
+}
+#btnComenzar
+{
+    font-family: 'Bangers', cursive;
+    font-size: 36px;
+    padding:12px;
+    height: 70px;
+    
+    transition: 1s;
+}
+#btnComenzar:hover
+{
+    transform: scale(1.15);
+   /* background-color: yellow;*/
+   box-shadow: 5px 5px 25px black;
+    transition: 1s;
+}
