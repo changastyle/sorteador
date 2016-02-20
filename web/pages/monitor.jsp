@@ -7,41 +7,36 @@
     </head>
     <body ng-app="app" ng-controller="monitor">
         
+        <div class="col-lg-6 col-lg-offset-3" ng-hide="empezoSorteo">
+            <img class="col-lg-12 img-responsive img-thumbnail" src="res/img/progress.gif" style="margin-top: 5%;">
+            <h2 class="hx col-lg-12" style="text-align: center;">Esperando a que comienze el sorteo..</h2>
+        </div>
         <!-- CONTENEDOR PRINCIPAL -->
-        <div id="contenedor" style="box-sizing: border-box;"> 
+        <div id="contenedor" style="box-sizing: border-box;" ng-show="empezoSorteo"> 
             
             <!-- BANNER : -->
-            <div class="banner" style="height: 150px;">
-                <div class="titular">
-                    <img id="logoSalta" src="res/img/loteria.jpg" class="img-responsive img-thumbnail " >
-                    <table style="display:inline-block">
-                        <tr><td><h4 class="hl" id="encabezadoPrincipal"> Loteria de Salta!</h4></td></tr>
-                        <tr><td><h5 class="hs"> Operada por TecnoAccion </h5></td></tr>
-                    </table>
-                </div>
-                
-            </div>
+            <%@include file="banner.jsp" %>
+            
+            <!-- HEADER SORTEO: -->
+            <div class=" col-xs-12 headerSorteo ">Sorteo {{tiempoSorteo}} del {{fechaSorteo}}: </div>
             
             <!-- LISTAS: -->
-            <div class="container-fluid" style="box-sizing: border-box; margin-top: 12px;">
-                
-                <h4 class=" col-xs-12 headerSorteo ">Sorteo del dia {{dia}}: </h4>
-                
-                <div class="col-xs-3 listas" id="lista1" ng-repeat="p in partes"> 
-                    <table class="table" style="height: calc(100% - 250px);">
-                        <tr ng-repeat="c in p.estructura">
-                            <!--{{p}}-->
-                            <td class="indice">{{c.indice}}</td>
-                            <td class="numero" id="numero{{c.indice}}" class="vert-align"  valign="middle">
-                                <div class="col-xs-3 digito digito1" >{{c.numero1}}</div>
-                                <div class="col-xs-3 digito digito2" >{{c.numero2}}</div>
-                                <div class="col-xs-3 digito digito3" >{{c.numero3}}</div>
-                                <div class="col-xs-3 digito digito4" >{{c.numero4}}</div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+            
+                 <div class="col-xs-3 listas" id="lista1" ng-repeat="p in partes" style=" margin-top: 25px;/*border:solid 2px yellow;*/"> 
+                     
+                    <div class="list-group" style="height: calc(100% - 250px); /*border:solid 2px #4CAF50;overflow: hidden;*/">
+                        <div class="list-group-item" ng-repeat="c in p.estructura" style="margin-bottom: 12px; height: 19%; overflow: hidden; background-color:rgba(0,0,0,0.5);border-radius: 5px; border:solid 0px black;/* box-shadow: 5px 5px 5px black;*/">
+                            <div class="indice ind-num-ambos col-xs-3">{{c.indice}}</div>
+                            <div id="numero{{c.indice}}" class="numeroTotal ind-num-ambos col-xs-8 col-xs-offset-1">
+                                <div class=" digito digito1 col-xs-3" >{{c.numero1}}</div>
+                                <div class=" digito digito2 col-xs-3" >{{c.numero2}}</div>
+                                <div class=" digito digito3 col-xs-3" >{{c.numero3}}</div>
+                                <div class=" digito digito4 col-xs-3" >{{c.numero4}}</div>
+                            </div>
+                        </div>
+                    </div>
+                     
+                 </div>
             
         </div>
     </body>
@@ -52,6 +47,9 @@
         {
             $scope.arrViejo = new Array();
             $scope.registros =  new Array();
+            $scope.fechaSorteo = null;
+            $scope.tiempoSorteo = null;
+            $scope.empezoSorteo == false;
             $scope.partes = new Array({'indice':1 ,'estructura':new Array()},{'indice':2 ,'estructura':new Array()},{'indice':3 ,'estructura':new Array()},{'indice':4 ,'estructura':new Array()});
             /*$scope.partes.estructura1 = new Array();
             $scope.partes.estructura2 = new Array();
@@ -133,8 +131,27 @@
                     }
                 ,async: true
                 });
-
-            }, 250);
+                
+                //Consulto la fechaSorteo y el tiempoSorteo
+                /*if( $scope.empezoSorteo == "false")
+                {*/
+                    $.ajax({url: "../WS/fechaWS.jsp",success: function (resultadoFecha, textStatus, jqXHR) 
+                    {
+                        resultado = JSON.parse(resultadoFecha);
+                        $scope.fechaSorteo = resultado.fechaSorteo;
+                        $scope.tiempoSorteo = resultado.tiempoSorteo;
+                        if($scope.fechaSorteo != "null" && $scope.tiempoSorteo != "null")
+                        {
+                            $scope.empezoSorteo = true;
+                        }
+                        
+                        $scope.$apply();
+                        console.log("resultado Fecha WS:" + $scope.fechaSorteo + " " +$scope.tiempoSorteo);
+                    }});
+                
+                }, 250);
+                
+            
             
             $scope.girar = function(indice)
             {
@@ -146,6 +163,7 @@
                 valorInicial3 = $("#numero"+indice).children(".digito3").html();
                 valorInicial4 = $("#numero"+indice).children(".digito4").html();
                 //console.log(valorInicial1 + "" + valorInicial2 + "" + valorInicial3 + "" +valorInicial4);
+                var audio = new Audio('res/sound/efecto.mp3');
                 
                 contador = 0;
                 
@@ -161,6 +179,7 @@
                     contador++;
                     if(contador < 20 )
                     {
+                        audio.play(); 
                         $("#numero"+indice).children(".digito1").html(numeroGenerado1);
                         $("#numero"+indice).children(".digito2").html(numeroGenerado2);
                         $("#numero"+indice).children(".digito3").html(numeroGenerado3);
@@ -199,9 +218,11 @@
                     else if(contador == 60)
                     {
                         $("#numero"+indice).children(".digito4").html(valorInicial4);
+                        audio.pause();
                     }
                     else if( contador > 100)
                     {
+                        
                         $interval.cancel(interval);
                     }
                     

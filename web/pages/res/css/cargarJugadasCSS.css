@@ -43,8 +43,8 @@ th
 }
 #btnComenzar:hover
 {
-    transform: scale(1.15);
+    //transform: scale(1.15);
    /* background-color: yellow;*/
-   box-shadow: 5px 5px 25px black;
-    transition: 1s;
+    box-shadow: inset -10px -10px 50px limegreen;
+   //transition: 1s;
 }

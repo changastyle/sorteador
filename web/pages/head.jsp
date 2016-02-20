@@ -3,6 +3,7 @@
 <script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
 <link href='https://fonts.googleapis.com/css?family=Bangers' rel='stylesheet' type='text/css'>
 <link href='https://fonts.googleapis.com/css?family=Orbitron:400,900' rel='stylesheet' type='text/css'>
+<link rel="icon" href="res/img/porceso-del-sorteo.png"/>
 <style>
     body
     {

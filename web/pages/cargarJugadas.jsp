@@ -39,7 +39,7 @@
                 <div class="form-group">
                     <label class="col-xs-2">Sorteo:</label>
                     <div class="col-xs-10">
-                        <select name="sorteo" id="comboSorteo" class="form-control">
+                        <select id="comboTiempoSorteo" name="sorteo" class="form-control">
                             <option>Matutina</option>
                             <option>Vespertina</option>
                             <option>Nocturno</option>
@@ -124,7 +124,11 @@
         $scope.mostrarListado = function()
         {
             //RESETEAR ARR BACKEND:
-            $.ajax({url:"../WS/resetear.jsp",beforeSend: function (xhr) 
+            fechaSorteo = $("#datePicker").val();
+            fechaSorteo = Date(fechaSorteo);
+            tiempoSorteo = $("#comboTiempoSorteo").val();
+            console.log("enviando " + fechaSorteo + " " + tiempoSorteo);
+            $.ajax({url:"../WS/resetear.jsp", data:{"fechaSorteo":fechaSorteo,"tiempoSorteo":tiempoSorteo},beforeSend: function (xhr) 
             {
                 $("#btnComenzar").addClass("btnRotador");
                 
@@ -146,15 +150,15 @@
 
         if(fechaActual.getHours() < 12)
         {
-            document.getElementById("comboSorteo").selectedIndex = "0";
+            document.getElementById("comboTiempoSorteo").selectedIndex = "0";
         }
         else if(fechaActual.getHours() > 12 && fechaActual.getHours()< 18)
         {
-            document.getElementById("comboSorteo").selectedIndex = "1";
+            document.getElementById("comboTiempoSorteo").selectedIndex = "1";
         }
         else
         {
-            document.getElementById("comboSorteo").selectedIndex = "2";
+            document.getElementById("comboTiempoSorteo").selectedIndex = "2";
         }
     });
 
@@ -162,11 +166,21 @@
     {
         id = $(quien).data("identificador");
         valor = $(quien).val();
+        progress = "progress" + id;
+        okay = "okay" + id;
         botonAsociado = "btnJugadas" + id ;
         
         console.log("validando inputs jugada: valor-> " + valor + " | botonAsociado ->" + botonAsociado) ;
 
 
+        //console.log( "botonAsociado:" + $("#" + botonAsociado).css('display')  );none
+        if($("#" + botonAsociado).css('display') == "none")
+        {
+            $("#" + okay ).hide();
+            $("#" + progress ).hide();
+            $("#" + botonAsociado).show();
+            
+        }
         if(isNaN(valor) || valor.length != 4 )
         {
             $(quien).css("border","solid 2px red");
@@ -200,7 +214,7 @@
                 $("#" + progress).show();
             },success: function (response, textStatus, jqXHR) 
             {
-                $("#" + input).prop("disabled",true);
+                //$("#" + input).prop("disabled",true);
                 $("#" + progress).hide(); 
                 $("#" + okay).show();
                 console.log("respuesta del WS: " + response);
