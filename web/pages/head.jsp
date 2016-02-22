@@ -21,14 +21,14 @@
     }
     .hx
     {
-        font-family: 'Bangers', cursive;
+        font-family: 'Arial', cursive;
         background-color:rgba(255,255,255,0.85);
         font-size: 48px;
         text-align: center;
     }
     .hs
     {
-        font-family: 'Bangers', cursive;
+        font-family: 'Arial', cursive;
         font-size: 18px;
         text-align: center;
     }
@@ -49,3 +49,8 @@
         text-align: center;
     }
 </style>
+<script>
+$(document).ready(function(){
+    $('[data-toggle="tooltip"]').tooltip(); 
+});
+</script>

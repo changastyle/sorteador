@@ -28,13 +28,13 @@ th
 }
 .headerCargaJugadas
 {
-    font-family: 'Bangers', cursive;
+    font-family: 'Arial', cursive;
     font-size: 36px;
     padding:12px;
 }
 #btnComenzar
 {
-    font-family: 'Bangers', cursive;
+    font-family: 'Arial', cursive;
     font-size: 36px;
     padding:12px;
     height: 70px;
@@ -46,5 +46,21 @@ th
     //transform: scale(1.15);
    /* background-color: yellow;*/
     box-shadow: inset -10px -10px 50px limegreen;
+   //transition: 1s;
+}
+#btnResetear
+{
+    font-family: 'Arial';
+    font-size: 36px;
+    padding:12px;
+    height: 70px;
+    
+    transition: 1s;
+}
+#btnResetear:hover
+{
+    //transform: scale(1.15);
+   /* background-color: yellow;*/
+    box-shadow: inset -10px -10px 50px #EC971F;
    //transition: 1s;
 }

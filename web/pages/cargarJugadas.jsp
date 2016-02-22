@@ -11,7 +11,7 @@
     <body ng-app="app"  ng-controller="cargarJugadas">
        
         <!-- Banner -->
-        <div class="col-xs-10 col-xs-offset-1 hx" style="margin-bottom: 0px;">
+        <div class="col-xs-10 col-xs-offset-1 hx" style="margin-bottom: 0px;font-family: 'Arial'">
            Loteria de Salta!
         </div>
        
@@ -32,14 +32,14 @@
                 <div class="form-group">
                     <label class="col-xs-2">Fecha:</label>
                     <div class="col-xs-10">
-                        <input id="datePicker" type="date" name="fecha" class="form-control" autofocus>
+                        <input id="datePicker" type="date" name="fecha" class="form-control" autofocus data-toggle="tooltip" title="Seleccionar Fecha"> 
                     </div>
                 </div>
                 
                 <div class="form-group">
                     <label class="col-xs-2">Sorteo:</label>
                     <div class="col-xs-10">
-                        <select id="comboTiempoSorteo" name="sorteo" class="form-control">
+                        <select id="comboTiempoSorteo" name="sorteo" class="form-control" data-toggle="tooltip" title="Seleccionar Horario">
                             <option>Matutina</option>
                             <option>Vespertina</option>
                             <option>Nocturno</option>
@@ -49,13 +49,19 @@
                 
                 <!-- BTN COMENZAR: -->
                 <div class="form-group">
-                    <button class="btn btn-success form-control" id="btnComenzar" ng-click="mostrarListado()" >
+                    <button class="btn btn-success form-control" id="btnComenzar" ng-click="mostrarListado()"  data-toggle="tooltip" title="Inicializa el sorteo">
                         <span class="glyphicon glyphicon-ok"></span> Comenzar!
+                    </button>
+                </div>
+                <!-- BTN RESETEAR: -->
+                <div class="form-group">
+                    <button class="btn btn-warning form-control" id="btnResetear"  ng-click="resetearSorteo()" ng-show="jugando" data-toggle="tooltip" title="Resetea el sorteo">
+                        <span class="glyphicon glyphicon-refresh"></span> Resetear Sorteo!
                     </button>
                 </div>
                 
                 <!-- Listado de carga: -->
-                <div class="form-group" id="listadoCarga" hidden>
+                <div class="form-group" id="listadoCarga" ng-show="jugando">
                     <table class="table table-responsive">
                         
                         <thead style="color:black;">
@@ -71,14 +77,14 @@
                                         <span class="input-group-addon" id="basic-addon1">{{r.indice1}}</span>
                                         <input type="text" id="inputJugada{{r.indice1}}" data-identificador="{{r.indice1}}" placeholder="Cargar {{r.texto1}} Jugada acá.."
                                                class="form-control inputsJugadas" aria-describedby="basic-addon1"
-                                               onkeypress="validarInputJugada(this)" onkeyup="validarInputJugada(this)">
+                                               onkeypress="validarInputJugada(this)" onkeyup="validarInputJugada(this)" onfocus="limpiarInput(this)">
                                     </div>
                                     <td class="col-xs-1">
                                         <button id="btnJugadas1" data-identificador="{{r.indice1}}" onclick="enviarJugadaSimple(this)" class="btn btn-success">
                                             <span class="glyphicon glyphicon-ok"></span> Enviar
                                         </button>
                                         <img id="progress{{r.indice1}}" class="img-thumbnail img-wait" height="10px" src="res/img/progress.gif" >
-                                        <h5  id="okay{{r.indice1}}" class="img-wait"><span class="glyphicon glyphicon-ok" height="10px" ></span> Enviado</h5>
+                                        <h5 id="okay{{r.indice1}}" class="img-wait"><span class="glyphicon glyphicon-ok" height="10px"></span> Enviado</h5>
                                     </td>
                                 </td>
                                 <td class="col-xs-5">
@@ -86,7 +92,7 @@
                                         <span class="input-group-addon" id="basic-addon1">{{r.indice2}}</span>
                                         <input type="text" id="inputJugada{{r.indice2}}"  data-identificador="{{r.indice2}}" placeholder="Cargar {{r.texto2}} Jugada acá.." 
                                                class="form-control inputsJugadas" aria-describedby="basic-addon1"
-                                               onkeypress="validarInputJugada(this)" onkeyup="validarInputJugada(this)" >
+                                               onkeypress="validarInputJugada(this)" onkeyup="validarInputJugada(this)"onfocus="limpiarInput(this)" >
                                     </div>
                                 </td>
                                 <td class="col-xs-1">
@@ -109,6 +115,7 @@
     
     app.controller('cargarJugadas', function($scope, $http) 
     {
+        $scope.jugando = false;
         $scope.repeticiones = new Array(
         {"indice1":1,"indice2":11,"texto1":"Primera","texto2":"Decimo Primera"},
         {"indice1":2,"indice2":12,"texto1":"Segunda","texto2":"Decimo Segunda"},
@@ -135,9 +142,38 @@
             },success: function (data, textStatus, jqXHR) 
             {
                 console.log("arr backend reseteado!");
-                $("#btnComenzar").hide("slow");
-                $("#listadoCarga").show("slow");
+                
+                $("#btnComenzar").hide("slow",function()
+                {
+                    $scope.jugando = true;
+                    $scope.$apply();
+                });
+                /*$("#btnResetear").show("slow");
+                $("#listadoCarga").show("slow");*/
             }});
+        }
+        $scope.resetearSorteo = function()
+        {
+            if(confirm("Esta seguro de resetear el sorteo??"))
+            {
+                $.ajax({url:"../WS/resetear.jsp", data:{"fechaSorteo":fechaSorteo,"tiempoSorteo":tiempoSorteo},beforeSend: function (xhr) 
+                {
+                    $("#btnResetear").addClass("btnRotador");
+
+                },success: function (data, textStatus, jqXHR) 
+                {
+                    console.log("arr backend reseteado!");
+
+                    location.reload();
+                    /*$("#btnResetear").show("slow");
+                    $("#listadoCarga").show("slow");*/
+                }});
+            }
+            
+           
+            
+            
+            
         }
     });
     </script>
@@ -161,7 +197,22 @@
             document.getElementById("comboTiempoSorteo").selectedIndex = "2";
         }
     });
-
+    function limpiarInput(quien)
+    {
+        $(quien).val("");
+        id = $(quien).data("identificador");
+        botonAsociado = "btnJugadas" + id ;
+        progress = "progress" + id;
+        okay = "okay" + id;
+        
+        console.log("limpiando..");
+        
+        $("#" + okay).hide();
+        $("#" +progress).hide();
+        $("#" +botonAsociado).show();
+        $("#" + botonAsociado).prop( "disabled", true );
+        $(botonAsociado).css("border","solid 2px red");
+    }
     function validarInputJugada(quien)
     {
         id = $(quien).data("identificador");
@@ -181,7 +232,8 @@
             $("#" + botonAsociado).show();
             
         }
-        if(isNaN(valor) || valor.length != 4 )
+        console.log("valor:"+ valor.trim())
+        if(isNaN(valor) || valor.length != 4  || valor.trim() == "")
         {
             $(quien).css("border","solid 2px red");
             $("#" + botonAsociado).prop( "disabled", true );
