@@ -3,14 +3,14 @@ package model;
 public class Jugada 
 {
     private int indice;
-    private int numero;
+    private String numero;
 
     public Jugada() 
     {
         this.indice = 0;
-        this.numero = 0;
+        this.numero = "";
     }
-    public Jugada(int indice, int numero)
+    public Jugada(int indice, String numero)
     {
         this.indice = indice;
         this.numero = numero;
@@ -25,11 +25,11 @@ public class Jugada
         this.indice = indice;
     }
 
-    public int getNumero() {
+    public String getNumero() {
         return numero;
     }
 
-    public void setNumero(int numero) {
+    public void setNumero(String numero) {
         this.numero = numero;
     }
     

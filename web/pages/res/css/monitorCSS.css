@@ -6,16 +6,16 @@ body
 #contenedor
 {
     position: absolute;
-    top:0px;
+    top:25px;
     bottom: 0px;
-    left:0px;
+    left:25px;
     right: 0px;
     /*background-color:#fae596;*/
     background-color:#9B3C52;
     /*background-color:#4CAF50;*/
     height: 100%;
     /*border:solid 2px black;*/
-    width: 100%;
+    width: 98%;
     box-sizing: border-box;
 
 }
@@ -23,25 +23,33 @@ body
 .listas
 {
     /*border:solid 2px black;*/
+    padding: 8px;
 }
 .ind-num-ambos
 {
     font-size: 56px;
     display: inline-block;
-    font-family: 'Orbitron', sans-serif; 
+//    font-family: 'Orbitron', sans-serif; 
+    font-family: 'Arial', sans-serif; 
     text-align: center;
-    border-radius: 5px;
-    padding: 8px;
-    padding-top:25px;
+    //border-radius: 5px;
+    //padding: 8px;
+    //padding-top:25px;
+    alignment-baseline: middle;
     height: 100%;
     position: relative;
+    //min-height: 130px;
     top:0px;
+    font-weight: 900;
 }
 .indice
 {
     
     background-color:#173e43;
     color:white;
+    //font-weight: bolder;
+    font-size: 72px;
+    border-radius: 5px 0px 0px 5px;
    // width: 25%;
     
 }
@@ -50,6 +58,8 @@ body
     //font-family: 'Orbitron', sans-serif;
     //border: solid 2px yellow;
     background-color:white;
+    border-radius: 0px 5px 5px 0px;
+       font-size: 72px;
     //width: 70%;
 
     
@@ -60,6 +70,8 @@ body
     font-size: 72px;
     text-align: center;
     border:solid 2px black;*/
+    font-weight: 900;
+    font-size: 72px;
 }
 
 
@@ -76,14 +88,28 @@ body
 
 .hs
 {
-    font-family: 'Bangers', cursive;
+    font-family: 'Arial', cursive;
     font-size: 24px;
     text-align: center;
 }
 .headerSorteo
 {
-    font-family: 'Bangers', cursive;
-    font-size: 36px;
+    font-family: 'Arial', cursive;
+    font-size: 48px;
+    font-weight: bold;
     text-align: center;
     background-color:rgba(255,255,255,0.85);
+}
+
+.cuadrado 
+{
+    margin-bottom: 12px; 
+    height: 130px; 
+    min-width: 445px;
+    overflow: hidden; 
+    background-color:rgba(0,0,0,0.5);
+    border-radius: 5px; 
+    border:solid 0px black;
+    
+    /* box-shadow: 5px 5px 5px black;*/
 }
