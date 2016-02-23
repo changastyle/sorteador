@@ -1,9 +1,11 @@
-<link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
-<script src="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
-<link href='https://fonts.googleapis.com/css?family=Bangers' rel='stylesheet' type='text/css'>
-<link href='https://fonts.googleapis.com/css?family=Orbitron:400,900' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" href="res/frameworks/bootstrap/css/bootstrap.min.css">
+<script src="res/frameworks/jquery.js"></script>
+<script src="res/frameworks/bootstrap/js/bootstrap.min.js"></script>
+<link href='res/fonts/bangers.css' rel='stylesheet' type='text/css'>
+<link href='res/fonts/orbitron.css' rel='stylesheet' type='text/css'>
+<link href='res/fonts/lobster.css' rel='stylesheet' type='text/css'>
 <link rel="icon" href="res/img/porceso-del-sorteo.png"/>
+<script src="res/frameworks/angular.min.js"></script>
 <style>
     body
     {
@@ -17,7 +19,6 @@
     .wrap1
     {
         background-color:rgba(255,255,255,0.85);
-
     }
     .hx
     {

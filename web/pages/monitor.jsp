@@ -3,7 +3,6 @@
         <%@include file="head.jsp" %>
         <link rel="stylesheet" href="res/css/monitorCSS.css">
         <link rel="stylesheet" href="res/css/enComunCSS.css">
-        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
     </head>
     <body ng-app="app" ng-controller="monitor">
 
@@ -210,7 +209,7 @@
                 dig4 = numero.charAt(3);
 
                 //console.log(valorInicial1 + "" + valorInicial2 + "" + valorInicial3 + "" +valorInicial4);
-                //var audio = new Audio('res/sound/efecto.mp3');
+                var audio = new Audio('res/sound/efecto.mp3');
 
                 contador = 0;
 
@@ -227,7 +226,7 @@
                     contador++;
                     if (contador < 20)
                     {
-                        //audio.play(); 
+                        audio.play(); 
                         $("#numero" + ind).children(".digito1").html(numeroGenerado1);
                         $("#numero" + ind).children(".digito2").html(numeroGenerado2);
                         $("#numero" + ind).children(".digito3").html(numeroGenerado3);
@@ -266,7 +265,7 @@
                     else if (contador == 38)
                     {
                         $("#numero" + ind).children(".digito4").html(dig4);
-                        //audio.pause();
+                        audio.pause();
                         $interval.cancel(interval);
                         bandera = false;
                     }

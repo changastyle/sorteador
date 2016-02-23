@@ -3,7 +3,6 @@
 <html>
     <head>
         <%@include file="head.jsp"%>
-        <script src="http://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.min.js"></script>
         <title>Cargar Jugadas</title>
         <link rel="stylesheet" href="res/css/cargarJugadasCSS.css">
         <link rel="stylesheet" href="res/css/enComunCSS.css">
@@ -19,16 +18,7 @@
         <div class="col-xs-10 col-xs-offset-1 wrap2">
             <div class="form-horizontal" style=" border-radius: 5px; padding:12px;">
                 <h3 class=" hs headerCargaJugadas">Fecha y Hora del Sorteo:</h3>
-                
-                <!--<div class="alert alert-danger" hidden>
-                    <strong>Danger!</strong> Indicates a dangerous or potentially negative action.
-                </div>
-                
-                <button style="display: none;" class="btn btn-default"  onclick="window.location.href='home.jsp'"
-                        <span class="glyphicon glyphicon-arrow-left"></span> Home
-                </button>-->
-                
-                
+
                 <div class="form-group">
                     <label class="col-xs-2">Fecha:</label>
                     <div class="col-xs-10">
@@ -65,12 +55,9 @@
                     <table class="table table-responsive">
                         
                         <thead style="color:black;">
-                        <th class="col-xs-12 headerCargaJugadas" colspan="4"> Carga de Jugadas:</th>
-                        <!--<th class="col-xs-5" colspan="2">Jugadas</th>
-                        <th class="col-xs-5" colspan="2">Jugadas</th>-->
+                            <th class="col-xs-12 headerCargaJugadas" colspan="4"> Carga de Jugadas:</th>
                         </thead>
                         <tbody>
-                            
                             <tr ng-repeat="r in repeticiones">
                                 <td class="col-xs-5">
                                     <div class="input-group">
@@ -80,27 +67,30 @@
                                                onkeypress="validarInputJugada(this)" onkeyup="validarInputJugada(this)" onfocus="limpiarInput(this)">
                                     </div>
                                     <td class="col-xs-1">
-                                        <button id="btnJugadas1" data-identificador="{{r.indice1}}" onclick="enviarJugadaSimple(this)" class="btn btn-success">
+                                        <button id="btnJugadas{{r.indice1}}" data-identificador="{{r.indice1}}" onclick="enviarJugadaSimple(this)" class="btn btn-primary">
                                             <span class="glyphicon glyphicon-ok"></span> Enviar
                                         </button>
                                         <img id="progress{{r.indice1}}" class="img-thumbnail img-wait" height="10px" src="res/img/progress.gif" >
-                                        <h5 id="okay{{r.indice1}}" class="img-wait"><span class="glyphicon glyphicon-ok" height="10px"></span> Enviado</h5>
+                                        <!--<h5 id="okay{{r.indice1}}" class="img-wait"><span class="glyphicon glyphicon-ok" height="10px"></span> Enviado</h5>-->
                                     </td>
                                 </td>
+                                
+                                <!-- SEGUNDA COL -->
+                                
                                 <td class="col-xs-5">
                                     <div class="input-group">
                                         <span class="input-group-addon" id="basic-addon1">{{r.indice2}}</span>
                                         <input type="text" id="inputJugada{{r.indice2}}"  data-identificador="{{r.indice2}}" placeholder="Cargar {{r.texto2}} Jugada acá.." 
                                                class="form-control inputsJugadas" aria-describedby="basic-addon1"
-                                               onkeypress="validarInputJugada(this)" onkeyup="validarInputJugada(this)"onfocus="limpiarInput(this)" >
+                                               onkeypress="validarInputJugada(this)" onkeyup="validarInputJugada(this)" onfocus="limpiarInput(this)">
                                     </div>
                                 </td>
                                 <td class="col-xs-1">
-                                    <button  id="btnJugadas{{r.indice2}}" data-identificador="{{r.indice2}}" class="btn btn-success" onclick="enviarJugadaSimple(this)">
+                                    <button  id="btnJugadas{{r.indice2}}" data-identificador="{{r.indice2}}" class="btn btn-primary" onclick="enviarJugadaSimple(this)">
                                         <span class="glyphicon glyphicon-ok"></span> Enviar
                                     </button>
                                     <img id="progress{{r.indice2}}" class="img-thumbnail img-wait" height="10px" src="res/img/progress.gif" >
-                                    <h5  id="okay{{r.indice2}}" class="img-wait" ><span class="glyphicon glyphicon-ok" height="10px" ></span> Enviado</h5>
+                                    <!--<h5  id="okay{{r.indice2}}" class="img-wait" ><span class="glyphicon glyphicon-ok" height="10px" ></span> Enviado</h5>-->
                                 </td>
                             </tr>
                         </tbody>
@@ -197,22 +187,7 @@
             document.getElementById("comboTiempoSorteo").selectedIndex = "2";
         }
     });
-    function limpiarInput(quien)
-    {
-        $(quien).val("");
-        id = $(quien).data("identificador");
-        botonAsociado = "btnJugadas" + id ;
-        progress = "progress" + id;
-        okay = "okay" + id;
-        
-        console.log("limpiando..");
-        
-        $("#" + okay).hide();
-        $("#" +progress).hide();
-        $("#" +botonAsociado).show();
-        $("#" + botonAsociado).prop( "disabled", true );
-        $(botonAsociado).css("border","solid 2px red");
-    }
+    
     function validarInputJugada(quien)
     {
         id = $(quien).data("identificador");
@@ -254,25 +229,45 @@
         valorDelInput = $("#" + input).val();
         
         console.log("Enviando jugada:" + valorDelInput + " | " + progress + " | "  + okay);
-
-        $(quien).hide();
+        
         jugada = {"indice" : id, "numero" : valorDelInput};
-        console.log("jugada" + jugada.toString());
+        
+        //console.log("jugada" + jugada.toString());
         $.ajax(
-        {   url:"../WS/reciboJugada.jsp",
+        {   
+            url:"../WS/reciboJugada.jsp",
             data:{"jugada": JSON.stringify(jugada)},
             beforeSend: function (xhr) 
             {
-                $("#" + progress).show();
+                $(quien).removeClass("btn-primary");
+                
             },success: function (response, textStatus, jqXHR) 
             {
-                //$("#" + input).prop("disabled",true);
-                $("#" + progress).hide(); 
-                $("#" + okay).show();
+                $(quien).html("<span class='glyphicon glyphicon-ok'></span> Enviado..");
+                
+                $(quien).addClass("btn-success");
+                
                 console.log("respuesta del WS: " + response);
             }
         });
         
+    }
+    function limpiarInput(quien)
+    {
+        $(quien).val("");
+        id = $(quien).data("identificador");
+        botonAsociado = "btnJugadas" + id ;
+        progress = "progress" + id;
+        //okay = "okay" + id;
+        
+        console.log("limpiando.." + JSON.stringify($(botonAsociado)));
+        
+        $("#" + botonAsociado).prop( "disabled", true );
+        $("#" + botonAsociado).removeClass("btn-success");
+        $("#" + botonAsociado).addClass("btn-primary");
+        $("#" + botonAsociado).html("<span class='glyphicon glyphicon-ok'></span> Enviar");
+        
+        //$(botonAsociado).css("border","solid 2px red");
     }
     </script>
 </html>
