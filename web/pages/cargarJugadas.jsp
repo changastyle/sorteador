@@ -122,7 +122,7 @@
         {
             //RESETEAR ARR BACKEND:
             fechaSorteo = $("#datePicker").val();
-            fechaSorteo = Date(fechaSorteo);
+            //fechaSorteo = Date(fechaSorteo);
             tiempoSorteo = $("#comboTiempoSorteo").val();
             console.log("enviando " + fechaSorteo + " " + tiempoSorteo);
             $.ajax({url:"../WS/resetear.jsp", data:{"fechaSorteo":fechaSorteo,"tiempoSorteo":tiempoSorteo},beforeSend: function (xhr) 

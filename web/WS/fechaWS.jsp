@@ -5,17 +5,17 @@
     
     Date fechaSorteo = controller.Controller.getFechaSorteo();
     
-    //out.print(fechaSorteo.getDay());
+    //out.print("fechaSorteo:" + fechaSorteo);
     String strDiaFechaSorteo = "";
     switch(fechaSorteo.getDay())
     {
-        case 0: strDiaFechaSorteo = "Lunes"; break;
-        case 1: strDiaFechaSorteo = "Martes"; break;
-        case 2: strDiaFechaSorteo = "Miercoles"; break;
-        case 3: strDiaFechaSorteo = "Jueves"; break;
-        case 4: strDiaFechaSorteo = "Viernes"; break;
-        case 5: strDiaFechaSorteo = "Sabado"; break;
-        case 6: strDiaFechaSorteo = "Domingo"; break;
+        case 1: strDiaFechaSorteo = "Lunes"; break;
+        case 2: strDiaFechaSorteo = "Martes"; break;
+        case 3: strDiaFechaSorteo = "Miercoles"; break;
+        case 4: strDiaFechaSorteo = "Jueves"; break;
+        case 5: strDiaFechaSorteo = "Viernes"; break;
+        case 6: strDiaFechaSorteo = "Sabado"; break;
+        case 7: strDiaFechaSorteo = "Domingo"; break;
     }
     String strMesFechaSorteo = "";
     switch(fechaSorteo.getMonth())
